@@ -19,6 +19,9 @@ sha256sums=('SKIP')
 prepare() {
     pkgdir=${PKG}
     srcdir=${SRC}
+
+    # Limpar o diretório de pacotes antigos
+    rm -rf ${srcdir}/${pkgname}-${pkgver}
 }
 
 build() {
@@ -33,4 +36,9 @@ build() {
 package() {
     cd ${pkgname}
     make DESTDIR=${pkgdir} install
+}
+
+clean() {
+    rm -rf ${pkgdir}
+    rm -rf ${srcdir}/${pkgname}-${pkgver}
 }
