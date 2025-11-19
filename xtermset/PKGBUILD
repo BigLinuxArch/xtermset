@@ -17,28 +17,21 @@ source=(git+https://github.com/biglinux/xtermset)
 sha256sums=('SKIP')
 
 prepare() {
-    pkgdir=${PKG}
-    srcdir=${SRC}
-
-    # Limpar o diretório de pacotes antigos
-    rm -rf ${srcdir}/${pkgname}-${pkgver}
+	pkgdir=${PKG}
+	srcdir=${SRC}
 }
 
 build() {
-    cd src/${pkgname}
+    cd src/${pkgname}/${pkgname}-${pkgver}
     aclocal
     autoconf
-    automake --add-missing --copy
+	automake --add-missing --copy
     ./configure --prefix=/usr
     make
 }
 
 package() {
-    cd ${pkgname}
+    cd ${pkgname}/${pkgname}-${pkgver}
     make DESTDIR=${pkgdir} install
 }
 
-clean() {
-    rm -rf ${pkgdir}
-    rm -rf ${srcdir}/${pkgname}-${pkgver}
-}
