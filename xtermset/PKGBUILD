@@ -1,0 +1,37 @@
+# Maintainer    : Vilmar Catafesta <vcatafesta@gmail.com>
+# description   : Change some settings of an xterm
+# depends       : gcc, make, autoconf, automake, pkg-config
+
+name=xtermset
+version=0.5.2
+release=1
+pkgname=xtermset
+pkgver=0.5.2
+pkgrel=1
+arch=('x86_64')
+pkgdesc='Change some settings of an xterm'
+url='https://github.com/biglinux/xtermset'
+license=('GPL')
+depends=('gcc' 'make' 'autoconf' 'automake' 'pkg-config')
+source=(git+https://github.com/biglinux/xtermset)
+sha256sums=('SKIP')
+
+prepare() {
+    pkgdir=${PKG}
+    srcdir=${SRC}
+    cd "$srcdir/$pkgname"
+}
+
+build() {
+    cd "$srcdir/$pkgname"
+    aclocal
+    autoconf
+    automake --add-missing --copy
+    ./configure --prefix=/usr
+    make
+}
+
+package() {
+    cd "$srcdir/$pkgname"
+    make DESTDIR=${pkgdir} install
+}
