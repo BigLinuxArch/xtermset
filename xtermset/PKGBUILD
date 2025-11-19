@@ -18,11 +18,18 @@ sha256sums=('SKIP')
 
 prepare() {
 	pkgdir=${PKG}
-	srcdir=${SRC}/${pkgname}
+	srcdir=${SRC}
 }
 
+echo "src"
+ls -lha $src
+echo "pkgname1"
+ls -lha $src/${pkgname}/
+echo "pkgname2"
+ls -lha $src/${pkgname}/${pkgname}-${pkgver}
+
 build() {
-    cd ${srcdir}
+    cd src/${pkgname}/${pkgname}-${pkgver}
     aclocal
     autoconf
 	automake --add-missing --copy
@@ -31,7 +38,7 @@ build() {
 }
 
 package() {
-    cd ${srcdir}
+    cd ${pkgname}/${pkgname}-${pkgver}
     make DESTDIR=${pkgdir} install
 }
 
