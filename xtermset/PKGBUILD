@@ -19,6 +19,10 @@ sha256sums=('SKIP')
 prepare() {
     pkgdir=${PKG}
     srcdir=${SRC}
+
+    # Remove existing build directory if exists (forcefully)
+    rm -rf "$pkgdir"
+
     cd "$srcdir/$pkgname"
 }
 
@@ -35,8 +39,3 @@ package() {
     cd "$srcdir/$pkgname"
     make DESTDIR=${pkgdir} install
 }
-
-if [[ -e "$pkgdir" ]]; then
-    echo "O pacote já foi construído. Forçando a sobreposição..."
-    rm -rf "$pkgdir"  # Remove o diretório existente
-fi
