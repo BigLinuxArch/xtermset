@@ -1,6 +1,6 @@
 # Maintainer    : Vilmar Catafesta <vcatafesta@gmail.com>
 # description   : Change some settings of an xterm
-# depends       : gcc, make, autoconf, automake, pkg-config
+# depends   	:
 
 name=xtermset
 version=0.5.2
@@ -12,22 +12,17 @@ arch=('x86_64')
 pkgdesc='Change some settings of an xterm'
 url='https://github.com/biglinux/xtermset'
 license=('GPL')
-depends=('gcc' 'make' 'autoconf' 'automake' 'pkg-config')
+depends=('gcc')
 source=(git+https://github.com/biglinux/xtermset)
 sha256sums=('SKIP')
 
 prepare() {
     pkgdir=${PKG}
     srcdir=${SRC}
-
-    # Remove existing build directory if exists (forcefully)
-    rm -rf "$pkgdir"
-
-    cd "$srcdir/$pkgname"
 }
 
 build() {
-    cd "$srcdir/$pkgname"
+    cd src/${pkgname}
     aclocal
     autoconf
     automake --add-missing --copy
@@ -36,6 +31,6 @@ build() {
 }
 
 package() {
-    cd "$srcdir/$pkgname"
+    cd ${pkgname}
     make DESTDIR=${pkgdir} install
 }
