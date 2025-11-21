@@ -6,8 +6,8 @@ name=xtermset
 version=0.5.2
 release=1
 pkgname=xtermset
-pkgver=0.5.2
-pkgrel=1
+pkgver=1.0.0
+pkgrel=2
 arch=('x86_64')
 pkgdesc='Change some settings of an xterm'
 url='https://github.com/biglinux/xtermset'
@@ -20,13 +20,6 @@ prepare() {
 	pkgdir=${PKG}
 	srcdir=${SRC}
 }
-
-echo "src"
-ls -lha $src
-echo "pkgname1"
-ls -lha $src/${pkgname}/
-echo "pkgname2"
-ls -lha $src/${pkgname}/${pkgname}-${pkgver}
 
 build() {
     cd src/${pkgname}/${pkgname}-${pkgver}
